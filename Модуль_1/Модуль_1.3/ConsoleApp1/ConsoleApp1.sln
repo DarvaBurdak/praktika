@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36511.14 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1.csproj", "{48685F37-987E-476C-887A-DE3E72873011}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Задача 2", "..\ConsoleApp2\Задача 2.csproj", "{228C5FF1-6E22-4CD4-9FE5-16BB207496AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Задача 3", "..\Задача 3\Задача 3.csproj", "{7E59531F-E4AA-4A83-AB8B-B59FFD90381B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48685F37-987E-476C-887A-DE3E72873011}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48685F37-987E-476C-887A-DE3E72873011}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48685F37-987E-476C-887A-DE3E72873011}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48685F37-987E-476C-887A-DE3E72873011}.Release|Any CPU.Build.0 = Release|Any CPU
+		{228C5FF1-6E22-4CD4-9FE5-16BB207496AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{228C5FF1-6E22-4CD4-9FE5-16BB207496AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{228C5FF1-6E22-4CD4-9FE5-16BB207496AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{228C5FF1-6E22-4CD4-9FE5-16BB207496AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E59531F-E4AA-4A83-AB8B-B59FFD90381B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E59531F-E4AA-4A83-AB8B-B59FFD90381B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E59531F-E4AA-4A83-AB8B-B59FFD90381B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E59531F-E4AA-4A83-AB8B-B59FFD90381B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6B3B3907-6ADC-4554-B517-3437384D293A}
+	EndGlobalSection
+EndGlobal
