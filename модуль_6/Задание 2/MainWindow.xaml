@@ -1,0 +1,336 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Система учёта задач"
+        Height="720" Width="1120"
+        MinHeight="600" MinWidth="900"
+        WindowStartupLocation="CenterScreen"
+        Background="#F3F5F9"
+        FontFamily="Segoe UI">
+
+    <!-- Общие стили элементов интерфейса -->
+    <Window.Resources>
+
+        <!-- Стиль кнопок -->
+        <Style x:Key="ActionButton" TargetType="Button">
+            <Setter Property="Background" Value="#405CF5"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="Margin" Value="0,0,8,8"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="7"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.85"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Стиль подписей над полями -->
+        <Style x:Key="FieldLabel" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#586174"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+        </Style>
+
+        <!-- Стиль полей ввода -->
+        <Style x:Key="InputBox" TargetType="TextBox">
+            <Setter Property="Padding" Value="9,7"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="BorderBrush" Value="#D9DEEA"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+    </Window.Resources>
+
+    <!-- Главная сетка: боковая панель и рабочая область -->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Боковая панель -->
+        <Border Grid.Column="0" Background="#202B46">
+            <StackPanel Margin="22,28,18,20">
+
+                <TextBlock Text="TASK MANAGER"
+                           Foreground="White"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Margin="0,0,0,8"/>
+
+                <TextBlock Text="Управление задачами"
+                           Foreground="#AEB9D3"
+                           FontSize="12"
+                           Margin="0,0,0,35"/>
+
+                <Border Background="#344363"
+                        CornerRadius="8"
+                        Padding="12"
+                        Margin="0,0,0,12">
+                    <TextBlock Text="▦   Все задачи"
+                               Foreground="White"
+                               FontSize="14"
+                               FontWeight="SemiBold"/>
+                </Border>
+
+                <TextBlock Text="Добавляйте задачи, меняйте их статус и контролируйте сроки."
+                           Foreground="#C0C9DD"
+                           FontSize="12"
+                           TextWrapping="Wrap"
+                           LineHeight="20"/>
+
+                <Border Background="#2C3957"
+                        CornerRadius="8"
+                        Padding="12"
+                        Margin="0,28,0,0">
+                    <StackPanel>
+                        <TextBlock Text="ХРАНЕНИЕ ДАННЫХ"
+                                   Foreground="#AEB9D3"
+                                   FontSize="10"
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,7"/>
+                        <TextBlock Text="SQLite"
+                                   Foreground="White"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"/>
+                        <TextBlock Text="Данные сохраняются на компьютере"
+                                   Foreground="#C0C9DD"
+                                   FontSize="11"
+                                   TextWrapping="Wrap"
+                                   Margin="0,5,0,0"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- Основная рабочая область -->
+        <Grid Grid.Column="1" Margin="28,24,28,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Заголовок -->
+            <StackPanel Grid.Row="0" Margin="0,0,0,22">
+                <TextBlock Text="Система учёта задач"
+                           FontSize="26"
+                           FontWeight="Bold"
+                           Foreground="#202B46"/>
+                <TextBlock Text="Создавайте задачи и следите за их выполнением"
+                           FontSize="13"
+                           Foreground="#778198"
+                           Margin="0,5,0,0"/>
+            </StackPanel>
+
+            <!-- Карточка с формой -->
+            <Border Grid.Row="1"
+                    Background="White"
+                    CornerRadius="12"
+                    Padding="18"
+                    Margin="0,0,0,18">
+                <StackPanel>
+                    <TextBlock Text="Данные задачи"
+                               FontSize="16"
+                               FontWeight="SemiBold"
+                               Foreground="#202B46"
+                               Margin="0,0,0,16"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1.4*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Название -->
+                        <StackPanel Grid.Row="0" Grid.Column="0"
+                                    Margin="0,0,12,12">
+                            <TextBlock Text="Название задачи"
+                                       Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="txtTitle"
+                                     Style="{StaticResource InputBox}"
+                                     ToolTip="Введите название задачи"/>
+                        </StackPanel>
+
+                        <!-- Срок -->
+                        <StackPanel Grid.Row="0" Grid.Column="1"
+                                    Margin="0,0,12,12">
+                            <TextBlock Text="Срок выполнения"
+                                       Style="{StaticResource FieldLabel}"/>
+                            <DatePicker x:Name="dpDueDate"
+                                        SelectedDate="{x:Static sys:DateTime.Today}"
+                                        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                                        Padding="5"
+                                        FontSize="13"/>
+                        </StackPanel>
+
+                        <!-- Статус -->
+                        <StackPanel Grid.Row="0" Grid.Column="2"
+                                    Margin="0,0,0,12">
+                            <TextBlock Text="Статус"
+                                       Style="{StaticResource FieldLabel}"/>
+                            <ComboBox x:Name="cmbStatus"
+                                      Padding="6"
+                                      FontSize="13"
+                                      SelectedIndex="0">
+                                <ComboBoxItem Content="Новая"/>
+                                <ComboBoxItem Content="В работе"/>
+                                <ComboBoxItem Content="Выполнена"/>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <!-- Описание -->
+                        <StackPanel Grid.Row="1" Grid.Column="0"
+                                    Grid.ColumnSpan="3">
+                            <TextBlock Text="Описание"
+                                       Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="txtDescription"
+                                     Style="{StaticResource InputBox}"
+                                     Height="65"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     VerticalContentAlignment="Top"
+                                     ToolTip="Дополнительная информация о задаче"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Кнопки управления -->
+                    <WrapPanel Margin="0,16,0,0">
+                        <Button Content="＋ Добавить"
+                                Style="{StaticResource ActionButton}"
+                                Click="Add_Click"/>
+
+                        <Button Content="Сохранить изменения"
+                                Style="{StaticResource ActionButton}"
+                                Background="#159B72"
+                                Click="Update_Click"/>
+
+                        <Button Content="Удалить"
+                                Style="{StaticResource ActionButton}"
+                                Background="#D94B55"
+                                Click="Delete_Click"/>
+
+                        <Button Content="Очистить поля"
+                                Style="{StaticResource ActionButton}"
+                                Background="#69758B"
+                                Click="Clear_Click"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Заголовок списка -->
+            <Grid Grid.Row="2" Margin="0,0,0,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Список задач"
+                           FontSize="17"
+                           FontWeight="SemiBold"
+                           Foreground="#202B46"
+                           VerticalAlignment="Center"/>
+
+                <TextBlock x:Name="txtTaskCount"
+                           Grid.Column="1"
+                           Text="Задач: 0"
+                           Foreground="#778198"
+                           FontSize="12"
+                           VerticalAlignment="Center"/>
+            </Grid>
+
+            <!-- Таблица задач -->
+            <Border Grid.Row="3"
+                    Background="White"
+                    CornerRadius="10"
+                    Padding="8">
+                <DataGrid x:Name="TasksGrid"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          SelectionMode="Single"
+                          SelectionUnit="FullRow"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          CanUserResizeRows="False"
+                          GridLinesVisibility="Horizontal"
+                          HorizontalGridLinesBrush="#E9ECF3"
+                          BorderThickness="0"
+                          Background="White"
+                          RowBackground="White"
+                          AlternatingRowBackground="#F8F9FC"
+                          HeadersVisibility="Column"
+                          SelectionChanged="TasksGrid_SelectionChanged">
+
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#F0F3F9"/>
+                            <Setter Property="Foreground" Value="#586174"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                            <Setter Property="Padding" Value="10,12"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="№"
+                                            Binding="{Binding Id}"
+                                            Width="45"/>
+
+                        <DataGridTextColumn Header="Название"
+                                            Binding="{Binding Title}"
+                                            Width="2*"/>
+
+                        <DataGridTextColumn Header="Описание"
+                                            Binding="{Binding Description}"
+                                            Width="2*"/>
+
+                        <DataGridTextColumn Header="Срок"
+                                            Binding="{Binding DueDate, StringFormat={}{0:dd.MM.yyyy}}"
+                                            Width="100"/>
+
+                        <DataGridTextColumn Header="Статус"
+                                            Binding="{Binding Status}"
+                                            Width="110"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+
+            <!-- Строка состояния -->
+            <TextBlock x:Name="txtMessage"
+                       Grid.Row="4"
+                       Text="Программа готова к работе."
+                       Foreground="#69758B"
+                       FontSize="12"
+                       Margin="2,12,0,0"
+                       TextWrapping="Wrap"/>
+        </Grid>
+    </Grid>
+</Window>

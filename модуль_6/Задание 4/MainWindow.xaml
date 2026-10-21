@@ -1,0 +1,268 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Учёт личных финансов"
+        Height="760" Width="1150"
+        MinHeight="620" MinWidth="900"
+        WindowStartupLocation="CenterScreen"
+        Background="#F3F5F9"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+        <!-- Общий стиль кнопок -->
+        <Style x:Key="ActionButton" TargetType="Button">
+            <Setter Property="Background" Value="#405CF5"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="14,9"/>
+            <Setter Property="Margin" Value="0,0,8,8"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <!-- Общий стиль полей ввода -->
+        <Style x:Key="InputBox" TargetType="TextBox">
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="Margin" Value="0,4,10,10"/>
+            <Setter Property="BorderBrush" Value="#D9DEEA"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,20">
+            <TextBlock Text="Учёт личных финансов"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="#202B46"/>
+            <TextBlock Text="Управляйте доходами и расходами"
+                       FontSize="13"
+                       Foreground="#778198"
+                       Margin="0,5,0,0"/>
+        </StackPanel>
+
+        <!-- Карточки баланса -->
+        <Grid Grid.Row="1" Margin="0,0,0,18">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    Background="#E0F6EA"
+                    CornerRadius="10"
+                    Padding="16"
+                    Margin="0,0,10,0">
+                <StackPanel>
+                    <TextBlock Text="Общий доход"
+                               Foreground="#26784F"
+                               FontSize="13"/>
+                    <TextBlock x:Name="txtIncome"
+                               Text="0,00"
+                               Foreground="#17643E"
+                               FontSize="23"
+                               FontWeight="Bold"
+                               Margin="0,6,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1"
+                    Background="#FCE7E7"
+                    CornerRadius="10"
+                    Padding="16"
+                    Margin="0,0,10,0">
+                <StackPanel>
+                    <TextBlock Text="Общий расход"
+                               Foreground="#A83D46"
+                               FontSize="13"/>
+                    <TextBlock x:Name="txtExpense"
+                               Text="0,00"
+                               Foreground="#A52F3A"
+                               FontSize="23"
+                               FontWeight="Bold"
+                               Margin="0,6,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="2"
+                    Background="#E6EBFF"
+                    CornerRadius="10"
+                    Padding="16">
+                <StackPanel>
+                    <TextBlock Text="Баланс"
+                               Foreground="#4055A5"
+                               FontSize="13"/>
+                    <TextBlock x:Name="txtBalance"
+                               Text="0,00"
+                               Foreground="#2F438F"
+                               FontSize="23"
+                               FontWeight="Bold"
+                               Margin="0,6,0,0"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Форма ввода операции -->
+        <Border Grid.Row="2"
+                Background="White"
+                CornerRadius="10"
+                Padding="16"
+                Margin="0,0,0,16">
+            <StackPanel>
+                <TextBlock Text="Финансовая операция"
+                           FontSize="17"
+                           FontWeight="SemiBold"
+                           Foreground="#202B46"
+                           Margin="0,0,0,12"/>
+
+                <WrapPanel>
+                    <StackPanel Width="130">
+                        <TextBlock Text="Тип операции"/>
+                        <ComboBox x:Name="cmbType"
+                                  Margin="0,4,10,10"
+                                  Padding="7"
+                                  SelectedIndex="0">
+                            <ComboBoxItem Content="Доход"/>
+                            <ComboBoxItem Content="Расход"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Width="170">
+                        <TextBlock Text="Категория"/>
+                        <TextBox x:Name="txtCategory"
+                                 Style="{StaticResource InputBox}"/>
+                    </StackPanel>
+
+                    <StackPanel Width="130">
+                        <TextBlock Text="Сумма"/>
+                        <TextBox x:Name="txtAmount"
+                                 Style="{StaticResource InputBox}"/>
+                    </StackPanel>
+
+                    <StackPanel Width="150">
+                        <TextBlock Text="Дата операции"/>
+                        <DatePicker x:Name="dpDate"
+                                    Margin="0,4,10,10"
+                                    Padding="5"/>
+                    </StackPanel>
+                </WrapPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Описание"/>
+                    <TextBox x:Name="txtDescription"
+                             Style="{StaticResource InputBox}"
+                             Height="48"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             VerticalContentAlignment="Top"/>
+                </StackPanel>
+
+                <WrapPanel Margin="0,5,0,0">
+                    <Button Content="＋ Добавить"
+                            Style="{StaticResource ActionButton}"
+                            Click="Add_Click"/>
+
+                    <Button Content="Сохранить изменения"
+                            Style="{StaticResource ActionButton}"
+                            Background="#159B72"
+                            Click="Update_Click"/>
+
+                    <Button Content="Удалить"
+                            Style="{StaticResource ActionButton}"
+                            Background="#D94B55"
+                            Click="Delete_Click"/>
+
+                    <Button Content="Очистить"
+                            Style="{StaticResource ActionButton}"
+                            Background="#69758B"
+                            Click="Clear_Click"/>
+                </WrapPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Поиск записей -->
+        <DockPanel Grid.Row="3" LastChildFill="True">
+            <StackPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+                <TextBlock Text="История операций"
+                           FontSize="17"
+                           FontWeight="SemiBold"
+                           Foreground="#202B46"
+                           Margin="0,0,0,8"/>
+
+                <DockPanel LastChildFill="True">
+                    <Button Content="Найти"
+                            DockPanel.Dock="Right"
+                            Style="{StaticResource ActionButton}"
+                            Margin="8,0,0,0"
+                            Click="Search_Click"/>
+                    <TextBox x:Name="txtSearch"
+                             Padding="9"
+                             FontSize="13"
+                             BorderBrush="#D9DEEA"
+                             ToolTip="Поиск по категории или описанию"/>
+                </DockPanel>
+            </StackPanel>
+
+            <!-- Таблица операций -->
+            <DataGrid x:Name="FinanceGrid"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      CanUserAddRows="False"
+                      SelectionMode="Single"
+                      SelectionUnit="FullRow"
+                      GridLinesVisibility="Horizontal"
+                      HeadersVisibility="Column"
+                      Background="White"
+                      BorderThickness="0"
+                      RowBackground="White"
+                      AlternatingRowBackground="#F8F9FC"
+                      SelectionChanged="FinanceGrid_SelectionChanged">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="№"
+                                        Binding="{Binding Id}"
+                                        Width="45"/>
+
+                    <DataGridTextColumn Header="Тип"
+                                        Binding="{Binding Type}"
+                                        Width="85"/>
+
+                    <DataGridTextColumn Header="Категория"
+                                        Binding="{Binding Category}"
+                                        Width="1.2*"/>
+
+                    <DataGridTextColumn Header="Сумма"
+                                        Binding="{Binding Amount, StringFormat={}{0:N2}}"
+                                        Width="100"/>
+
+                    <DataGridTextColumn Header="Дата"
+                                        Binding="{Binding Date, StringFormat={}{0:dd.MM.yyyy}}"
+                                        Width="110"/>
+
+                    <DataGridTextColumn Header="Описание"
+                                        Binding="{Binding Description}"
+                                        Width="2*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+
+        <!-- Сообщение о выполненном действии -->
+        <TextBlock x:Name="txtMessage"
+                   Grid.Row="4"
+                   Text="Программа готова к работе."
+                   Foreground="#69758B"
+                   Margin="2,12,0,0"
+                   TextWrapping="Wrap"/>
+    </Grid>
+</Window>
